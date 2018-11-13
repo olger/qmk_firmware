@@ -86,8 +86,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define M_NSPC 8
 #define M_PSPC 9
 
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  //QWERY - Base Layer

@@ -42,12 +42,12 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
- [_QW] = { /* QWERTY */                        
-  { KC_GRAVE,KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
-  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_INSERT  },
-  { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LT(_MOUSE, KC_SCLN), LT(_MEDIA, KC_QUOT), LT(_ENTFN, KC_ENT),  LT(_ENTFN, KC_ENT), KC_PGUP  },
-  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { KC_LCTL, MO(_FN), KC_LALT, KC_LGUI, MO(_LW), KC_SPC,  KC_SPC,  MO(_RS), LT(_ENTFN, KC_ENT), KC_RGUI, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT  },
+ [_QW] = { /* QWERTY */
+  { KC_ESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC  },
+  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS  },
+  { KC_GRAVE,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    MO(_FN),  KC_H,    KC_J,    KC_K,    KC_L,    LT(_MOUSE, KC_SCLN), LT(_MEDIA, KC_QUOT), LT(_ENTFN, KC_ENT),  LT(_ENTFN, KC_ENT)  },
+  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_VOLD, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_PGDN, KC_UP , KC_RSFT },
+  { KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  KC_SPC,  KC_SPC,  KC_VOLU, MO(_LW), MO(_RS), KC_RGUI, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT  },
  },
 
 /* LOWERED
@@ -106,14 +106,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
 };
 
-#define rgblight_setrgb_user_base()  rgblight_sethsv(325,255,255)
 
+//Define layer colors
+#define rgblight_setrgb_user_base()  rgblight_sethsv(325,255,255)
+#define rgblight_setrgb_user_LW() rgblight_sethsv_cyan()
+#define rgblight_setrgb_user_RS()  rgblight_sethsv_yellow()
+#define rgblight_setrgb_user_FN()  rgblight_sethsv_orange()
 
 //initialize rgb
 void matrix_init_user(void) {
   rgblight_enable();
   rgblight_mode(1);
   rgblight_setrgb_user_base();
+}
+
+//Set a color based on the layer
+uint32_t layer_state_set_user(uint32_t state) {
+  switch(biton32(state)) {
+    case _LW:
+      rgblight_setrgb_user_LW();
+      break;
+    case _RS:
+      rgblight_setrgb_user_RS();
+      break;
+    case _FN:
+      rgblight_setrgb_user_FN();
+      break;
+    default:
+      rgblight_setrgb_user_base();
+      break;
+  }
+  return state;
 }
 
 

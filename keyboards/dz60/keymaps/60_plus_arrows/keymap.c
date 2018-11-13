@@ -3,6 +3,13 @@
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 #define ______ KC_TRNS
+#define MOUSEKEY_DELAY             30
+#define MOUSEKEY_INTERVAL          50
+#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_TIME_TO_MAX       10
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+#define TERMINAL_HELP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -21,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   LAYOUT_2_shifts(
-      KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, ______, KC_BSPC,
+      KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, ______, KC_BSPC,
       KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
-      KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
-      KC_LSFT, ______, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, MO(1),
-      KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_SPC, KC_SPC, KC_RGUI, KC_RALT, KC_LEFT, KC_DOWN, KC_RIGHT
+      KC_GRV, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+      KC_LSFT, ______, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT(MOD_RSFT, KC_SLSH), KC_UP, KC_SLSH,
+      KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_SPC, KC_SPC, MO(1), KC_RALT, KC_LEFT, KC_DOWN, KC_RIGHT
       ),
 
 /* FN Layer
@@ -43,11 +50,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   LAYOUT_directional(
-      KC_ESC, BL_TOGG, BL_STEP, BL_DEC, BL_INC, ______, ______, RESET, ______, ______, ______, ______, ______, ______, ______,
+      KC_GRV, BL_TOGG, BL_STEP, BL_DEC, BL_INC, ______, ______, RESET, ______, ______, ______, ______, ______, TERM_ON, TERM_OFF,
       ______, RGB_MOD, ______, ______, ______, ______, ______, ______, ______, ______, ______, RGB_VAI, RGB_VAD, RGB_TOG,
       ______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, ______, ______, ______, ______, ______, ______, ______,
-      ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_RCTL, ______,
-      ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+      ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_MS_UP, ______,
+      ______, ______, ______, KC_MS_BTN1, KC_MS_BTN1, KC_MS_BTN1, ______, ______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT
       ),
 };
 
